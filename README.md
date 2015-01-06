@@ -1,5 +1,4 @@
-#Compiling
-**SSE-Compiling-Course**
+#SSE-Compiling-Course
 
 -----
 
@@ -18,4 +17,4 @@
 * 翁新喆
 	* 学号：1252928
 	* 邮箱：honglongweng94@163.com
-	* 联系方式：189=-6452-5640
+	* 联系方式：189-6452-5640
