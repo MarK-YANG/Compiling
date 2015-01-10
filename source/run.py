@@ -6,7 +6,9 @@
 
 import sys
 
-tokens = ('H1','H2','H3','H4','H5','H6','CR','TEXT')
+tokens = (
+            'H1','H2','H3','H4','H5','H6','CR','TEXT','BOLD','HIGHLIGHT'
+        )
 
 # Tokens
 t_H1 = r'\# '
@@ -15,6 +17,8 @@ t_H3 = r'\#\#\# '
 t_H4 = r'\#\#\#\# '
 t_H5 = r'\#\#\#\#\# '
 t_H6 = r'\#\#\#\#\#\# '
+t_BOLD = r'\*\* '
+t_HIGHLIGHT = r'\`'
 
 def t_TEXT(t):
     r'[_a-zA-Z0-9]+'
@@ -59,13 +63,15 @@ def p_state(p):
     elif (len(p) == 4):
         p[0] = str(p[1]) + str(p[3])
 
+
 def p_exp_cr(p):
     '''expression : H1 factor
                 | H2 factor
                 | H3 factor
                 | H4 factor
                 | H5 factor
-                | H6 factor'''
+                | H6 factor
+                | factor'''
     if p[1] == '#':
         p[0] = '<h1>' + str(p[2]) + '</h1>'
     elif p[1] == '##':
@@ -80,11 +86,22 @@ def p_exp_cr(p):
         p[0] = '<h5>' + str(p[2]) + '</h5>'
     elif p[1] == '######':
         p[0] = '<h6>' + str(p[2]) + '</h6>'
-    
+    else:
+        p[0] = p[1]
 
 def p_factor_text(p):
-    "factor : TEXT"
+    '''factor : TEXT
+            | BOLDTEXT
+            | HIGHLIGHTTEXT'''
+  
     p[0] = p[1]
+    
+def p_bold_text(p):
+    "BOLDTEXT : BOLD TEXT BOLD"
+    p[0] = '<B>' + str(p[2]) + '</B>'
+def p_highLight_text(p):
+    "HIGHLIGHTTEXT : HIGHLIGHT TEXT HIGHLIGHT"
+    p[0] = '<u>' + str(p[2]) + '<u>'
 
 def p_error(p):
     if p:

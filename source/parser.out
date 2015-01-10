@@ -12,10 +12,16 @@ Rule 6     expression -> H3 factor
 Rule 7     expression -> H4 factor
 Rule 8     expression -> H5 factor
 Rule 9     expression -> H6 factor
-Rule 10    factor -> TEXT
+Rule 10    expression -> factor
+Rule 11    factor -> TEXT
+Rule 12    factor -> BOLDTEXT
+Rule 13    factor -> HIGHLIGHTTEXT
+Rule 14    BOLDTEXT -> BOLD TEXT BOLD
+Rule 15    HIGHLIGHTTEXT -> HIGHLIGHT TEXT HIGHLIGHT
 
 Terminals, with rules where they appear
 
+BOLD                 : 14 14
 CR                   : 3
 H1                   : 4
 H2                   : 5
@@ -23,14 +29,17 @@ H3                   : 6
 H4                   : 7
 H5                   : 8
 H6                   : 9
-TEXT                 : 10
+HIGHLIGHT            : 15 15
+TEXT                 : 11 14 15
 error                : 
 
 Nonterminals, with rules where they appear
 
+BOLDTEXT             : 12
+HIGHLIGHTTEXT        : 13
 body                 : 0
 expression           : 2 3
-factor               : 4 5 6 7 8 9
+factor               : 4 5 6 7 8 9 10
 statement            : 1 3
 
 Parsing method: LALR
@@ -47,17 +56,29 @@ state 0
     (7) expression -> . H4 factor
     (8) expression -> . H5 factor
     (9) expression -> . H6 factor
+    (10) expression -> . factor
+    (11) factor -> . TEXT
+    (12) factor -> . BOLDTEXT
+    (13) factor -> . HIGHLIGHTTEXT
+    (14) BOLDTEXT -> . BOLD TEXT BOLD
+    (15) HIGHLIGHTTEXT -> . HIGHLIGHT TEXT HIGHLIGHT
 
-    H1              shift and go to state 4
-    H2              shift and go to state 2
-    H3              shift and go to state 3
-    H4              shift and go to state 6
-    H5              shift and go to state 7
-    H6              shift and go to state 5
+    H1              shift and go to state 6
+    H2              shift and go to state 4
+    H3              shift and go to state 5
+    H4              shift and go to state 8
+    H5              shift and go to state 9
+    H6              shift and go to state 7
+    TEXT            shift and go to state 11
+    BOLD            shift and go to state 3
+    HIGHLIGHT       shift and go to state 15
 
     body                           shift and go to state 1
-    expression                     shift and go to state 9
-    statement                      shift and go to state 8
+    HIGHLIGHTTEXT                  shift and go to state 2
+    BOLDTEXT                       shift and go to state 10
+    statement                      shift and go to state 12
+    factor                         shift and go to state 13
+    expression                     shift and go to state 14
 
 state 1
 
@@ -67,68 +88,155 @@ state 1
 
 state 2
 
-    (5) expression -> H2 . factor
-    (10) factor -> . TEXT
+    (13) factor -> HIGHLIGHTTEXT .
 
-    TEXT            shift and go to state 10
+    CR              reduce using rule 13 (factor -> HIGHLIGHTTEXT .)
+    $end            reduce using rule 13 (factor -> HIGHLIGHTTEXT .)
 
-    factor                         shift and go to state 11
 
 state 3
 
-    (6) expression -> H3 . factor
-    (10) factor -> . TEXT
+    (14) BOLDTEXT -> BOLD . TEXT BOLD
 
-    TEXT            shift and go to state 10
+    TEXT            shift and go to state 16
 
-    factor                         shift and go to state 12
 
 state 4
 
-    (4) expression -> H1 . factor
-    (10) factor -> . TEXT
+    (5) expression -> H2 . factor
+    (11) factor -> . TEXT
+    (12) factor -> . BOLDTEXT
+    (13) factor -> . HIGHLIGHTTEXT
+    (14) BOLDTEXT -> . BOLD TEXT BOLD
+    (15) HIGHLIGHTTEXT -> . HIGHLIGHT TEXT HIGHLIGHT
 
-    TEXT            shift and go to state 10
+    TEXT            shift and go to state 11
+    BOLD            shift and go to state 3
+    HIGHLIGHT       shift and go to state 15
 
-    factor                         shift and go to state 13
+    HIGHLIGHTTEXT                  shift and go to state 2
+    BOLDTEXT                       shift and go to state 10
+    factor                         shift and go to state 17
 
 state 5
 
-    (9) expression -> H6 . factor
-    (10) factor -> . TEXT
+    (6) expression -> H3 . factor
+    (11) factor -> . TEXT
+    (12) factor -> . BOLDTEXT
+    (13) factor -> . HIGHLIGHTTEXT
+    (14) BOLDTEXT -> . BOLD TEXT BOLD
+    (15) HIGHLIGHTTEXT -> . HIGHLIGHT TEXT HIGHLIGHT
 
-    TEXT            shift and go to state 10
+    TEXT            shift and go to state 11
+    BOLD            shift and go to state 3
+    HIGHLIGHT       shift and go to state 15
 
-    factor                         shift and go to state 14
+    HIGHLIGHTTEXT                  shift and go to state 2
+    BOLDTEXT                       shift and go to state 10
+    factor                         shift and go to state 18
 
 state 6
 
-    (7) expression -> H4 . factor
-    (10) factor -> . TEXT
+    (4) expression -> H1 . factor
+    (11) factor -> . TEXT
+    (12) factor -> . BOLDTEXT
+    (13) factor -> . HIGHLIGHTTEXT
+    (14) BOLDTEXT -> . BOLD TEXT BOLD
+    (15) HIGHLIGHTTEXT -> . HIGHLIGHT TEXT HIGHLIGHT
 
-    TEXT            shift and go to state 10
+    TEXT            shift and go to state 11
+    BOLD            shift and go to state 3
+    HIGHLIGHT       shift and go to state 15
 
-    factor                         shift and go to state 15
+    HIGHLIGHTTEXT                  shift and go to state 2
+    BOLDTEXT                       shift and go to state 10
+    factor                         shift and go to state 19
 
 state 7
 
-    (8) expression -> H5 . factor
-    (10) factor -> . TEXT
+    (9) expression -> H6 . factor
+    (11) factor -> . TEXT
+    (12) factor -> . BOLDTEXT
+    (13) factor -> . HIGHLIGHTTEXT
+    (14) BOLDTEXT -> . BOLD TEXT BOLD
+    (15) HIGHLIGHTTEXT -> . HIGHLIGHT TEXT HIGHLIGHT
 
-    TEXT            shift and go to state 10
+    TEXT            shift and go to state 11
+    BOLD            shift and go to state 3
+    HIGHLIGHT       shift and go to state 15
 
-    factor                         shift and go to state 16
+    HIGHLIGHTTEXT                  shift and go to state 2
+    BOLDTEXT                       shift and go to state 10
+    factor                         shift and go to state 20
 
 state 8
+
+    (7) expression -> H4 . factor
+    (11) factor -> . TEXT
+    (12) factor -> . BOLDTEXT
+    (13) factor -> . HIGHLIGHTTEXT
+    (14) BOLDTEXT -> . BOLD TEXT BOLD
+    (15) HIGHLIGHTTEXT -> . HIGHLIGHT TEXT HIGHLIGHT
+
+    TEXT            shift and go to state 11
+    BOLD            shift and go to state 3
+    HIGHLIGHT       shift and go to state 15
+
+    HIGHLIGHTTEXT                  shift and go to state 2
+    BOLDTEXT                       shift and go to state 10
+    factor                         shift and go to state 21
+
+state 9
+
+    (8) expression -> H5 . factor
+    (11) factor -> . TEXT
+    (12) factor -> . BOLDTEXT
+    (13) factor -> . HIGHLIGHTTEXT
+    (14) BOLDTEXT -> . BOLD TEXT BOLD
+    (15) HIGHLIGHTTEXT -> . HIGHLIGHT TEXT HIGHLIGHT
+
+    TEXT            shift and go to state 11
+    BOLD            shift and go to state 3
+    HIGHLIGHT       shift and go to state 15
+
+    HIGHLIGHTTEXT                  shift and go to state 2
+    BOLDTEXT                       shift and go to state 10
+    factor                         shift and go to state 22
+
+state 10
+
+    (12) factor -> BOLDTEXT .
+
+    CR              reduce using rule 12 (factor -> BOLDTEXT .)
+    $end            reduce using rule 12 (factor -> BOLDTEXT .)
+
+
+state 11
+
+    (11) factor -> TEXT .
+
+    CR              reduce using rule 11 (factor -> TEXT .)
+    $end            reduce using rule 11 (factor -> TEXT .)
+
+
+state 12
 
     (1) body -> statement .
     (3) statement -> statement . CR expression
 
     $end            reduce using rule 1 (body -> statement .)
-    CR              shift and go to state 17
+    CR              shift and go to state 23
 
 
-state 9
+state 13
+
+    (10) expression -> factor .
+
+    CR              reduce using rule 10 (expression -> factor .)
+    $end            reduce using rule 10 (expression -> factor .)
+
+
+state 14
 
     (2) statement -> expression .
 
@@ -136,15 +244,21 @@ state 9
     $end            reduce using rule 2 (statement -> expression .)
 
 
-state 10
+state 15
 
-    (10) factor -> TEXT .
+    (15) HIGHLIGHTTEXT -> HIGHLIGHT . TEXT HIGHLIGHT
 
-    CR              reduce using rule 10 (factor -> TEXT .)
-    $end            reduce using rule 10 (factor -> TEXT .)
+    TEXT            shift and go to state 24
 
 
-state 11
+state 16
+
+    (14) BOLDTEXT -> BOLD TEXT . BOLD
+
+    BOLD            shift and go to state 25
+
+
+state 17
 
     (5) expression -> H2 factor .
 
@@ -152,7 +266,7 @@ state 11
     $end            reduce using rule 5 (expression -> H2 factor .)
 
 
-state 12
+state 18
 
     (6) expression -> H3 factor .
 
@@ -160,7 +274,7 @@ state 12
     $end            reduce using rule 6 (expression -> H3 factor .)
 
 
-state 13
+state 19
 
     (4) expression -> H1 factor .
 
@@ -168,7 +282,7 @@ state 13
     $end            reduce using rule 4 (expression -> H1 factor .)
 
 
-state 14
+state 20
 
     (9) expression -> H6 factor .
 
@@ -176,7 +290,7 @@ state 14
     $end            reduce using rule 9 (expression -> H6 factor .)
 
 
-state 15
+state 21
 
     (7) expression -> H4 factor .
 
@@ -184,7 +298,7 @@ state 15
     $end            reduce using rule 7 (expression -> H4 factor .)
 
 
-state 16
+state 22
 
     (8) expression -> H5 factor .
 
@@ -192,7 +306,7 @@ state 16
     $end            reduce using rule 8 (expression -> H5 factor .)
 
 
-state 17
+state 23
 
     (3) statement -> statement CR . expression
     (4) expression -> . H1 factor
@@ -201,20 +315,55 @@ state 17
     (7) expression -> . H4 factor
     (8) expression -> . H5 factor
     (9) expression -> . H6 factor
+    (10) expression -> . factor
+    (11) factor -> . TEXT
+    (12) factor -> . BOLDTEXT
+    (13) factor -> . HIGHLIGHTTEXT
+    (14) BOLDTEXT -> . BOLD TEXT BOLD
+    (15) HIGHLIGHTTEXT -> . HIGHLIGHT TEXT HIGHLIGHT
 
-    H1              shift and go to state 4
-    H2              shift and go to state 2
-    H3              shift and go to state 3
-    H4              shift and go to state 6
-    H5              shift and go to state 7
-    H6              shift and go to state 5
+    H1              shift and go to state 6
+    H2              shift and go to state 4
+    H3              shift and go to state 5
+    H4              shift and go to state 8
+    H5              shift and go to state 9
+    H6              shift and go to state 7
+    TEXT            shift and go to state 11
+    BOLD            shift and go to state 3
+    HIGHLIGHT       shift and go to state 15
 
-    expression                     shift and go to state 18
+    HIGHLIGHTTEXT                  shift and go to state 2
+    BOLDTEXT                       shift and go to state 10
+    expression                     shift and go to state 26
+    factor                         shift and go to state 13
 
-state 18
+state 24
+
+    (15) HIGHLIGHTTEXT -> HIGHLIGHT TEXT . HIGHLIGHT
+
+    HIGHLIGHT       shift and go to state 27
+
+
+state 25
+
+    (14) BOLDTEXT -> BOLD TEXT BOLD .
+
+    CR              reduce using rule 14 (BOLDTEXT -> BOLD TEXT BOLD .)
+    $end            reduce using rule 14 (BOLDTEXT -> BOLD TEXT BOLD .)
+
+
+state 26
 
     (3) statement -> statement CR expression .
 
     CR              reduce using rule 3 (statement -> statement CR expression .)
     $end            reduce using rule 3 (statement -> statement CR expression .)
+
+
+state 27
+
+    (15) HIGHLIGHTTEXT -> HIGHLIGHT TEXT HIGHLIGHT .
+
+    CR              reduce using rule 15 (HIGHLIGHTTEXT -> HIGHLIGHT TEXT HIGHLIGHT .)
+    $end            reduce using rule 15 (HIGHLIGHTTEXT -> HIGHLIGHT TEXT HIGHLIGHT .)
 
